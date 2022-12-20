@@ -13,6 +13,7 @@ function App() {
     try {
       let colors = new Values(color).all(10) //this is the API lib interaction
       setList(colors)
+      setError(false)
     } catch (error) {
       setError(true)
       console.log(error)
