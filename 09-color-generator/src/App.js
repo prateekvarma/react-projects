@@ -30,7 +30,8 @@ function App() {
       </section>
       <section className='colors'>
         {list.map((color, index) => {
-          return <SingleColor key={index} {...color} index={index} />
+          //the hexColor is unusual here. For some reason, hex was not passing manually to the child component
+          return <SingleColor key={index} {...color} index={index} hexColor={color.hex} />
         })}
       </section>
     </>
