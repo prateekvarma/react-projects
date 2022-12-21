@@ -11,8 +11,25 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("handle submit")
+    
+    if(!name) {
+      // display alert
+    } else if (name && isEditing) {
+      // deal with edit
+    } else {
+      //show alert
+
+      // add item to list
+      const newItem = { 
+        id: new Date().getTime().toString(),
+        title: name
+      }
+
+      setList([...list, newItem])
+      setName('')
+    }
   }
+    
 
   return (
     <section className='section-center'>
