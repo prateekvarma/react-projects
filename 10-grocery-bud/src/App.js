@@ -16,6 +16,16 @@ function App() {
       showAlert(true, 'danger','Cannot submit empty') // helper function
     } else if (name && isEditing) {
       // deal with edit
+      setList(list.map((item) => {
+        if(item.id === editId) {
+          return {...item, title: name}
+        }
+        return item
+      }))
+      setName('')
+      setEditId(null)
+      setIsEditing(false)
+      showAlert(true, 'success', 'Value changed')
     } else {
       showAlert(true, 'success', 'item added')
       // add item to list
@@ -43,6 +53,13 @@ function App() {
     setList(list.filter((item) => item.id !== id))
   }
 
+  const editItem = (id) => {
+    const specificItem = list.find((item) => item.id === id)
+    setIsEditing(true)
+    setEditId(id)
+    setName(specificItem.title)
+  }
+
   return (
     <section className='section-center'>
       <form className="grocery-form" onSubmit={handleSubmit}>
@@ -57,7 +74,7 @@ function App() {
       </form>
       {list.length > 0 && (
         <div className='grocery-container'>
-        <List items={list} removeItem={removeItem} />
+        <List items={list} removeItem={removeItem} editItem={editItem} />
         <button className='clear-btn' onClick={clearList}>
           clear items
         </button>
