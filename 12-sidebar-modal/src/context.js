@@ -10,4 +10,9 @@ const AppProvider= ({ children }) => {
     )
 }
 
+export const useGlobalContext = () => {
+    //custom hook
+    return useContext(AppContext)
+}
+
 export { AppContext, AppProvider }
