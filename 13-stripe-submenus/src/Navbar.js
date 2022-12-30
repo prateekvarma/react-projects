@@ -11,7 +11,7 @@ const Navbar = () => {
       <div className='nav-center'>
         <div className='nav-header'>
           <img src={logo} alt="stripe" className='nav-logo' />
-          <button className='btn tiggle-btn' onClick={openSidebar}>
+          <button className='btn toggle-btn' onClick={openSidebar}>
             <FaBars />
           </button>
         </div>
