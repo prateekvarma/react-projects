@@ -3,7 +3,7 @@ import { useGlobalContext } from './context'
 
 //This component is the menu that opens when hovering over a link on the nav
 const Submenu = () => {
-  const { isSubmenuOpen, location } = useGlobalContext()
+  const { isSubmenuOpen, location, page: { page, links } } = useGlobalContext()
   const container = useRef(null)
 
   useEffect(() => {
@@ -15,7 +15,13 @@ const Submenu = () => {
 
   return (
     <aside className={`${isSubmenuOpen ? 'submenu show' : 'submenu' }`} ref={container}>
-      DUMMY SUBMENU TEXT
+      <h4>{page}</h4>
+      <div className={`submenu-center col-2`}>
+        {links.map((link, index) => {
+          const { label, icon, url } = link
+          return <a key={index} href={url}>{icon} {label}</a>
+        })}
+      </div>
     </aside>
   )
 }
