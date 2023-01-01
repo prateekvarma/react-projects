@@ -14,8 +14,16 @@ const Navbar = () => {
     openSubmenu(page, { center, bottom }) // { center, bottom } act as coordinates for the context API function 'openSubmenu'
   }
 
+  const handleSubmenu = (e) => {
+    //Below, only if the event target has css class link-btn then close submenu
+    // else if the css class is anything else, do nothing.
+    if(!e.target.classList.contains('link-btn')) {
+      closeSubmenu()
+    }
+  }
+
   return (
-    <nav className='nav'>
+    <nav className='nav' onMouseOver={handleSubmenu}>
       <div className='nav-center'>
         <div className='nav-header'>
           <img src={logo} alt="stripe" className='nav-logo' />
