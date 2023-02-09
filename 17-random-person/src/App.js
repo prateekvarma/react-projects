@@ -16,6 +16,44 @@ function App() {
   const [title, setTitle] = useState('name');
   const [value, setValue] = useState('random person');
 
+  const getPerson = async () => {
+    const response = await fetch(url);
+    const data = await response.json();
+    const person = data.results[0];
+    const { phone, email } = person;
+    const { large: image } = person.picture; //destructure property large, and assign alias as 'image'
+    const {
+      login: { password },
+    } = person; //nested destructuring
+    const { first, last } = person.name;
+    const {
+      dob: { age },
+    } = person; //nested destructuring
+    const {
+      street: { number, name },
+    } = person.location;
+
+    const newPerson = {
+      //created a new person based on extract values
+      image,
+      phone,
+      email,
+      password,
+      age,
+      street: `${number}${name}`,
+      name: `${first}${last}`,
+    };
+
+    setPerson(newPerson);
+    setLoading(false);
+    setTitle('name');
+    setValue(newPerson.name);
+  };
+
+  useEffect(() => {
+    getPerson();
+  }, []);
+
   const handleValue = (e) => {
     console.log(e.target);
   };
@@ -47,11 +85,7 @@ function App() {
             >
               <FaEnvelopeOpen />
             </button>
-            <button
-              className='icon'
-              data-label='age'
-              onMouseOver={handleValue}
-            >
+            <button className='icon' data-label='age' onMouseOver={handleValue}>
               <FaCalendarTimes />
             </button>
             <button
