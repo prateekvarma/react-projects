@@ -35,7 +35,11 @@ function App() {
           <div className='btn-container'>
             {data.map((item, index) => {
               return (
-                <button onClick={() => handlePage(index)} className='page-btn' key={index}>
+                <button
+                  onClick={() => handlePage(index)}
+                  className={`page-btn ${index === page ? 'active-btn' : null}`}
+                  key={index}
+                >
                   {index + 1}
                 </button>
               );
