@@ -13,7 +13,11 @@ function App() {
     }
 
     setFollowers(data[page]);
-  }, [loading]);
+  }, [loading, page]);
+
+  const handlePage = (index) => {
+    setPage(index);
+  };
 
   return (
     <main>
@@ -31,7 +35,7 @@ function App() {
           <div className='btn-container'>
             {data.map((item, index) => {
               return (
-                <button className='page-btn' key={index}>
+                <button onClick={() => handlePage(index)} className='page-btn' key={index}>
                   {index + 1}
                 </button>
               );
