@@ -31,6 +31,24 @@ function App() {
     fetchImages();
   }, []);
 
+  useEffect(() => {
+    const event = window.addEventListener('scroll', () => {
+      // console.log(`innerHeight ${window.innerHeight}`)
+      // console.log(`scrollY ${window.scrollY}`)
+      // console.log(`Body Height ${document.body.scrollHeight}`)
+
+      if (
+        (!loading && window.innerHeight + window.scrollY) >=
+        document.body.scrollHeight - 2
+      ) {
+        //trigger 2 pixels before reaching the end of document
+        console.log('Scroll event triggered!');
+      }
+    });
+
+    return () => window.removeEventListener('scroll', event);
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Handle submit triggered');
@@ -49,7 +67,7 @@ function App() {
       <section className='photos'>
         <div className='photos-center'>
           {photos.map((image) => {
-            return <Photo key={image.id} {...image} />
+            return <Photo key={image.id} {...image} />;
           })}
         </div>
         {loading && <h2 className='loading'>Loading...</h2>}
