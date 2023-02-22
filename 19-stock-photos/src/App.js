@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import Photo from './Photo';
 
@@ -10,8 +10,9 @@ const searchUrl = `https://api.unsplash.com/search/photos/`;
 function App() {
   const [loading, setLoading] = useState(false);
   const [photos, setPhotos] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
+  const mounted = useRef(false);
 
   const fetchImages = async () => {
     setLoading(true);
@@ -50,28 +51,23 @@ function App() {
   }, [page]);
 
   useEffect(() => {
-    const event = window.addEventListener('scroll', () => {
-      // console.log(`innerHeight ${window.innerHeight}`)
-      // console.log(`scrollY ${window.scrollY}`)
-      // console.log(`Body Height ${document.body.scrollHeight}`)
-
-      if (
-        (!loading && window.innerHeight + window.scrollY) >=
-        document.body.scrollHeight - 2
-      ) {
-        //trigger 2 pixels before reaching the end of document
-        console.log('Scroll event triggered!');
-        setPage((prevState) => prevState + 1);
-      }
-    });
-
-    return () => window.removeEventListener('scroll', event);
+    if (!mounted.current) {
+      //if first render, assign a value and just return.
+      mounted.current = true;
+      return;
+    }
+    //below code never runs on 1st render, but every other re-render
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setPage(1) //setting page to 1 when search function is used
-    //fetchImages();
+    if (!query) {
+      return;
+    }
+    if (page === 1) {
+      fetchImages();
+    }
+    setPage(1);
   };
 
   return (
