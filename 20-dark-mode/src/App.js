@@ -3,6 +3,12 @@ import data from './data';
 import Article from './Article';
 
 function App() {
+  const [theme, setTheme] = useState('light-theme');
+
+  useEffect(() => {
+    document.documentElement.className = theme //adds css class to the html document
+  }, [theme]);
+
   return (
     <main>
       <nav>
