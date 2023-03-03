@@ -14,7 +14,7 @@ const useFetch = (urlParams) => {
           const data = await response.json();
     
           if (data.Response === 'True') {
-            setData(data.Search);
+            setData(data.Search || data); // data for list of movies || data for single movie
             setError({ show: false, msg: '' });
           } else {
             setError({ show: true, msg: data.Error });
