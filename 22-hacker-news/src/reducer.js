@@ -4,18 +4,28 @@ import {
   REMOVE_STORY,
   HANDLE_PAGE,
   HANDLE_SEARCH,
-} from './actions'
+} from './actions';
 
 const reducer = (state, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case SET_LOADING:
-      return {  ...state, isLoading: true }
+      return { ...state, isLoading: true };
     case SET_STORIES:
-      return { ...state, isLoading: false, hits: action.payload.hits, nbPages: action.payload.nbPages }
+      return {
+        ...state,
+        isLoading: false,
+        hits: action.payload.hits,
+        nbPages: action.payload.nbPages,
+      };
+    case REMOVE_STORY:
+      return {
+        ...state,
+        hits: state.hits.filter((story) => story.objectID !== action.payload),
+      };
 
     default:
-      throw new Error(`No matching action type: ${action.type} `)
+      throw new Error(`No matching action type: ${action.type} `);
   }
-}
+};
 
-export default reducer
+export default reducer;
