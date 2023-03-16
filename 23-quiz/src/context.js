@@ -49,7 +49,7 @@ const AppProvider = ({ children }) => {
     setIndex((oldIndex) => {
       const index = oldIndex + 1;
       if (index > questions.length - 1) {
-        // open modal
+        openModal(); // the only place in the app to invoke openModal
         return 0;
       } else {
         return index;
@@ -62,6 +62,16 @@ const AppProvider = ({ children }) => {
       setCorrect((oldState) => oldState + 1);
     }
     nextQuestion();
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setWaiting(true); // after closing modal, show the setup form again
+    setCorrect(0);
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
@@ -79,7 +89,8 @@ const AppProvider = ({ children }) => {
         error,
         isModalOpen,
         nextQuestion,
-        checkAnswer
+        checkAnswer,
+        closeModal
       }}
     >
       {children}
