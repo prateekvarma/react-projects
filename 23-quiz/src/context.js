@@ -83,11 +83,14 @@ const AppProvider = ({ children }) => {
     const name = e.target.name;
     const value = e.target.value;
     setQuiz({ ...quiz, [name]: value }); //the [name] inside box brackets fetches the existing key, else it will create a new key value pair.
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  }
+    const { amount, category, difficulty } = quiz;
+    const url = `${API_ENDPOINT}amount=${amount}&category=${table[category]}&difficulty=${difficulty}&type=multiple`;
+    fetchQuestions(url);
+  };
 
   return (
     <AppContext.Provider
@@ -104,7 +107,7 @@ const AppProvider = ({ children }) => {
         closeModal,
         quiz,
         handleChange,
-        handleSubmit
+        handleSubmit,
       }}
     >
       {children}
