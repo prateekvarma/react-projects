@@ -80,7 +80,9 @@ const AppProvider = ({ children }) => {
   };
 
   const handleChange = (e) => {
-    console.log(e);
+    const name = e.target.name;
+    const value = e.target.value;
+    setQuiz({ ...quiz, [name]: value }); //the [name] inside box brackets fetches the existing key, else it will create a new key value pair.
   }
 
   const handleSubmit = (e) => {
