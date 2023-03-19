@@ -23,7 +23,16 @@ function App() {
     return <Loading />;
   }
   const { question, incorrect_answers, correct_answer } = questions[index];
-  const answers = [...incorrect_answers, correct_answer];
+  let answers = [...incorrect_answers];
+  const tempIndex = Math.floor(Math.random() * 4);
+
+  if (tempIndex === 3) {
+    answers.push(correct_answer);
+  } else {
+    //One line solution: answers.splice(tempIndex, 0, correct_answer);
+    answers.push(answers[tempIndex]); //push the incorrect answer index to the end
+    answers[tempIndex] = correct_answer; //replace the incorrect answer with the correct answer
+  }
 
   return (
     <main>
